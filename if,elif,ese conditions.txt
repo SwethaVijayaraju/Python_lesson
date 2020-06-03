@@ -1,0 +1,196 @@
+#swetha
+i=0
+if i<0:
+	print("Negative")
+elif i>0:
+	print("Positive")
+else:
+	print("Neither positive nor Negative")
+
+
+a=10
+if a>0:
+	print("Positive")
+
+if a>5:
+	print("harry")
+
+q="" #False
+if q:
+	print('got')
+
+d=0 #False
+if d:
+	print('zero')
+
+
+student="harry"
+if student=="ron"or student=="harry":
+	print("Griffindor")
+elif student=="Draco":
+	print("Slytherin")
+elif student=="Penelope":
+	print("Ravenclaw")
+elif student=="Cedric":
+    print("Hufflepuff")
+else:
+    print("unknown")
+
+month="Dec"
+if month=="jan"or month=="feb"or month=="march"or month=="april":
+	season="Spring"
+	temp="20"
+elif month=="may"or month=="june"or month=="july":
+    season="Summer"
+    temp="40"
+elif month=="aug"or month=="sept"or month=="oct":
+	season="Fall"
+	temp="30"
+else:
+	season="Winter"
+	temp="10"
+print(season)
+print(temp)
+
+
+
+#Vishnu
+
+>>> i = 10
+>>> j = 20
+>>> i == 10 or j == 20
+True
+>>> i == 10 and j == 20
+True
+>>> i = 9
+>>> i == 10 or j == 20
+True
+>>> i == 10 and j == 20
+False
+>>> i ==10
+False
+>>> i == 10 or j ==20 or i < -10 or j > 20
+True
+>>> day = "monday"
+>>> day == "monday
+  File "<stdin>", line 1
+    day == "monday
+                 ^
+SyntaxError: EOL while scanning string literal
+>>> day == "monday"
+True
+>>> day == "monday" or day == "sunday"
+KeyboardInterrupt
+>>> mood = "happy"
+>>> (day == "monday and mood == "happy") or (day == "friday")
+  File "<stdin>", line 1
+    (day == "monday and mood == "happy") or (day == "friday")
+                                     ^
+SyntaxError: invalid syntax
+>>> (day == "monday" and mood == "happy") or (day == "friday")
+True
+>>> mood = "sad"
+>>> (day == "monday" and mood == "happy") or (day == "friday")
+False
+>>> day = "friday"
+>>> (day == "monday" and mood == "happy") or (day == "friday")
+True
+>>> if (day == "monday" and mood == "happy") or (day == "friday"):
+...     print("Vishnu is happy")
+... else:
+...     print("sad"
+... )
+...
+Vishnu is happy
+>>> i == 1
+False
+>>> i == 1 or j == 2
+False
+>>> i == 1 and j == 2
+False
+>>> cond = i == 1 and j == 2
+>>> cond
+False
+>>> 1
+1
+>>> a = 1
+>>> type(a)
+<type 'int'>
+>>> False
+False
+>>> True
+True
+>>> a = True
+>>> a
+True
+>>> type(a)
+<type 'bool'>
+>>> a =False
+>>> type(a)
+<type 'bool'>
+>>> 1
+1
+>>> False
+False
+>>> type(False)
+<type 'bool'>
+>>> b = False
+>>> a = 1
+>>> type(b)
+<type 'bool'>
+>>> type(a)
+<type 'int'>
+>>> i == j
+False
+>>> c = i == j
+>>> type(c)
+<type 'bool'>
+>>> c
+False
+>>> i < j
+True
+>>> d = i < j
+>>> d
+True
+>>> student = "harry"
+>>> student == "harry"
+True
+>>> student == "ron"
+False
+>>> student == "harry" or student == "ron"
+True
+>>> name = student == "harry" or student == "ron"
+>>> name
+True
+>>> if name:
+...     print("yes")
+...
+yes
+>>> name
+True
+>>> type(name)
+<type 'bool'>
+>>> student = "heromine"
+>>> name
+True
+>>> student == "harry" or student == "ron"
+False
+>>> name
+True
+>>> name = student == "harry" or student == "ron"
+>>> name
+False
+>>> if name:
+...
+  File "<stdin>", line 2
+
+    ^
+IndentationError: expected an indented block
+>>> if name:
+...     print("yes")
+...
+>>>
+
+
+
+

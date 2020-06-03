@@ -1,0 +1,314 @@
+#storing variables
+n=1
+g="swetha" #string to variable
+h=3.6 #float to variable
+
+#operators
+3+4
+3*9
+f="swetha"
+a=f+f 
+b=f*5 #multiplication of 2 or more strings not possible
+1==1
+1<=1
+1>=0
+1<7
+1>0.5
+
+#functions
+
+len(a)
+len("donkey")
+type(a)
+
+#defining function
+
+def name(u,v):
+	return (u/v)==1
+
+name(3,6)
+
+#creating list
+monkey=[1,2,6,8]
+rat=["lion","tiger"]
+leg(rat)
+mangoose=monkey+rat
+mangoose1=[monkey+rat]
+
+#import
+from math import *
+degrees()
+radians()
+sqrt()
+sin()
+cos()
+
+
+#Class 1
+b67, Apr 29 2020, 21:39:14) [MSC v.1924 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 1+1
+2
+>>> "swetha"
+'swetha'
+>>> "swetha+vishnu"
+'swetha+vishnu'
+>>> "swetha"+"vishnu"
+'swethavishnu'
+>>> "1.5+2.5"
+'1.5+2.5'
+>>> 1.5+2.5
+4.0
+>>> name="swetha"
+>>> name
+'swetha'
+>>> name_"vishnu"
+  File "<stdin>", line 1
+    name_"vishnu"
+         ^
+SyntaxError: invalid syntax
+>>> name="vishnu"
+>>> name
+'vishnu'
+>>> name+swetha
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'swetha' is not defined
+>>> name+"swetha"
+'vishnuswetha'
+>>> name1=name+"swetha"
+>>> name1
+'vishnuswetha'
+>>> name
+'vishnu'
+>>> name=name+"swetha"
+>>> name
+'vishnuswetha'
+>>> type(name)
+<class 'str'>
+>>> len(name)
+12
+>>> x=4
+>>> len(x)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: object of type 'int' has no len()
+>>> sin(90)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sin' is not defined
+>>> import math
+>>> sin(90)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sin' is not defined
+>>> math.sin(90)
+0.8939966636005579
+>>> sin(1.57)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sin' is not defined
+>>> math.sin(1.57)
+0.9999996829318346
+>>> import math as *
+  File "<stdin>", line 1
+    import math as *
+                   ^
+SyntaxError: invalid syntax
+>>> from math import *
+>>> sin(1.57)
+0.9999996829318346
+>>> degrees(90)
+5156.620156177409
+>>> radians(90)
+1.5707963267948966
+>>> radians(45)
+0.7853981633974483
+>>> sin(0.785)
+0.706825181105366
+>>> 1/sqrt(2)
+0.7071067811865475
+>>> sin(radians(45))
+0.7071067811865476
+>>> def swethasum(a,b):
+...     return a+b+10
+...
+>>> swethasum(3,4)
+17
+>>> def vishdiff(a,b,c):
+...     return a-b+c
+...
+>>> vishdiff(1000,5,-995)
+0
+>>> sum(3,4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+>>> [1,2,3]
+[1, 2, 3]
+>>> jon=[1,2,3]
+>>> jon
+[1, 2, 3]
+>>> type(jon)
+<class 'list'>
+>>> sum(jon)
+6
+>>> jon+4
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate list (not "int") to list
+>>> sum(jon)+4
+10
+>>> bon=[4,5,6]
+>>> jon+bon
+[1, 2, 3, 4, 5, 6]
+>>> sum(jon+bon)
+21
+>>> name*3
+'vishnuswethavishnuswethavishnuswetha'
+>>> 1+1
+2
+>>> swetha=1
+>>> swetha+swetha
+2
+>>> type(swetha)
+<class 'int'>
+>>> 1=swetha
+  File "<stdin>", line 1
+SyntaxError: cannot assign to literal
+>>> swetha="swetha"
+>>> swetha
+'swetha'
+>>> swetha="1"
+>>> swetha+swetha
+'11'
+>>> jon=[swetha,nivetha]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'nivetha' is not defined
+>>> jon=[swetha,"nivetha"]
+>>> jon
+['1', 'nivetha']
+>>> jon*2
+['1', 'nivetha', '1', 'nivetha']
+>>> type(name)
+<class 'str'>
+>>> def apple(a)
+  File "<stdin>", line 1
+    def apple(a)
+               ^
+SyntaxError: invalid syntax
+>>> def apple(a):
+...     return len
+...
+>>> def apple(a):
+...     return len(a)
+...
+>>> apple([smafmojdgm])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'smafmojdgm' is not defined
+>>> apple(["swetha","vish","nivi"])
+3
+>>> apple([])
+0
+>>> apple([1,2,3,4,5])
+5
+>>> apple([1]*100)
+100
+>>> apple("swetha")
+6
+>>> apple("5")
+1
+>>> apple(5)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in apple
+TypeError: object of type 'int' has no len()
+>>> n=1
+>>> d="dog"
+>>> g=3.5
+>>> boss=[n,d,g]
+>>> boss
+[1, 'dog', 3.5]
+>>> boss1=[1,"dog",3.5]
+>>> boss1
+[1, 'dog', 3.5]
+>>> cat=[boss,boss1]
+>>> cat
+[[1, 'dog', 3.5], [1, 'dog', 3.5]]
+>>> cat1=[boss,"boss"]
+>>> cat1
+[[1, 'dog', 3.5], 'boss']
+>>> cat1=[boss,len(boss)]
+>>> cat1
+[[1, 'dog', 3.5], 3]
+>>> len(cat1)
+2
+>>> cat1=[boss,len("boss")]
+>>> cat1
+[[1, 'dog', 3.5], 4]
+>>> def double(a):
+...     return a*2
+...
+>>> double(300)
+600
+>>> double("cute")
+'cutecute'
+>>> double(boss)
+[1, 'dog', 3.5, 1, 'dog', 3.5]
+>>> double(cat)
+[[1, 'dog', 3.5], [1, 'dog', 3.5], [1, 'dog', 3.5], [1, 'dog', 3.5]]
+>>> True
+True
+>>> 1
+1
+>>> False
+False
+>>> false
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'false' is not defined
+>>> 1==1
+True
+>>> 1=1
+  File "<stdin>", line 1
+SyntaxError: cannot assign to literal
+>>> 1==4
+False
+>>> 1=4
+  File "<stdin>", line 1
+SyntaxError: cannot assign to literal
+>>> 1<2
+True
+>>> 1<=1,2,3
+(True, 2, 3)
+>>> 1==g
+False
+>>> n==g
+False
+>>> swetha
+'1'
+>>> vishnu
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'vishnu' is not defined
+>>> vish
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'vish' is not defined
+>>> vishnu=100
+>>> swetha==vishnu
+False
+>>> vishnu=1
+>>> swetha==vishnu
+False
+>>> swetha
+'1'
+>>> vishnu
+1
+>>> swetha=1
+>>> swetha==vishnu
+True
+>>>
+>>>
