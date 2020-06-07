@@ -100,8 +100,6 @@ class Bisexual(MatchMaker):
 
 
 
-
-
 p1 = Person("vishnu", "male")
 p2 = Person("swetha", "female")
 p3 = Person("maya", "female")

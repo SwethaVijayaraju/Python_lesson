@@ -24,6 +24,18 @@
 # q.next() # "vishnu"
 # q.join("sukrut") # now this is fine because vishnu was removed from the queue.
 
+# 7c. Use inheritance to implement Stack from Queue. Since the join logic is the same Stack shouldn't have to
+# implement the join method(or init). It should basically have a different logic for selecting the next member.
+# Stack has the behavior of Last In First Out(Compare with First in First out)
+
+# s = Stack(capacity)
+# s.join("vishnu")
+# s.join("sukrut")
+# s.next() # "sukrut"
+# s.join("swetha")
+# s.next() # "swetha"
+# s.next() # "vishnu"
+
 class Queue:
     def __init__(self, capacity):
         self.queue = []
@@ -33,7 +45,7 @@ class Queue:
         if len(self.queue) < self.cap:
             if person not in self.queue:
                 self.queue.append(person)
-                # print(self.queue)
+                print(self.queue)
             else:
                 position = self.queue.index(person) + 1
                 if position == 1:
@@ -50,7 +62,20 @@ class Queue:
 
     def next(self):
         if len(self.queue) != 0:
+            r = self.queue[0]
             self.queue.remove(self.queue[0])
+            return r
+            # print(self.queue)
+        else:
+            print("Error - Nobody is in the queue")
+
+
+class Stack(Queue):
+    def next(self):
+        if len(self.queue) != 0:
+            r = self.queue[-1]
+            self.queue.remove(self.queue[-1])
+            return r
             # print(self.queue)
         else:
             print("Error - Nobody is in the queue")
@@ -70,7 +95,7 @@ q1.join("mary")
 q1.join("sukrut")
 q1.next()
 q1.join("sukrut")
-q1.next()
+print(q1.next())
 q1.join("vishnu")
 q2 = Queue(6)
 q2.join("vinodh")
@@ -80,3 +105,10 @@ q2.join("rengz")
 q2.join("naveen")
 q2.join("rengz")
 q2.join("manisekar")
+s = Stack(4)
+s.join("harry")
+s.join("ron")
+s.join("hermoine")
+s.join("ginny")
+s.join("draco")
+print(s.next())
