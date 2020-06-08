@@ -25,30 +25,32 @@ class MatchMaker:
             dislikes = self.dislikes(user1)
 
             for user2 in self.users():
-                if self.reg[user1].sexuality == "straight" \
+                person1 = self.reg[user1]
+                person2 = self.reg[user2]
+                if person1.sexuality == "straight" \
                         and user2 != user1 and user2 not in likes and user2 not in dislikes \
-                        and self.reg[user1].sex != self.reg[user2].sex \
-                        and (self.reg[user2].sexuality == "straight" or self.reg[user2].sexuality == "bisexual"):
+                        and person1.sex != person2.sex \
+                        and (person2.sexuality == "straight" or person2.sexuality == "bisexual"):
                     recommendations.append(user2)
 
-                elif self.reg[user1].sexuality == "bisexual" \
+                elif person1.sexuality == "bisexual" \
                         and user2 != user1 and user2 not in likes and user2 not in dislikes \
-                        and (self.reg[user2].sexuality == "bisexual"
-                             or (self.reg[user2].sexuality == "straight" and self.reg[user1].sex != self.reg[user2].sex)
-                             or (self.reg[user2].sexuality == "gay" and self.reg[user1].sex == "male")
-                             or (self.reg[user2].sexuality == "lesbian" and self.reg[user1].sex == "female")):
+                        and (person2.sexuality == "bisexual"
+                             or (person2.sexuality == "straight" and person1.sex != person2.sex)
+                             or (person2.sexuality == "gay" and person1.sex == "male")
+                             or (person2.sexuality == "lesbian" and person1.sex == "female")):
                     recommendations.append(user2)
 
-                elif self.reg[user1].sexuality == "gay" \
+                elif person1.sexuality == "gay" \
                         and user2 != user1 and user2 not in likes and user2 not in dislikes \
-                        and self.reg[user2].sex == "male" \
-                        and (self.reg[user2].sexuality == "gay" or self.reg[user2].sexuality == "bisexual"):
+                        and person2.sex == "male" \
+                        and (person2.sexuality == "gay" or person2.sexuality == "bisexual"):
                     recommendations.append(user2)
 
-                elif self.reg[user1].sexuality == "lesbian" \
+                elif person1.sexuality == "lesbian" \
                         and user2 != user1 and user2 not in likes and user2 not in dislikes \
-                        and self.reg[user2].sex == "female" \
-                        and (self.reg[user2].sexuality == "lesbian" or self.reg[user2].sexuality == "bisexual"):
+                        and person2.sex == "female" \
+                        and (person2.sexuality == "lesbian" or person2.sexuality == "bisexual"):
                     recommendations.append(user2)
 
         else:
