@@ -35,7 +35,7 @@ class Person:
         self.sexuality = sexuality
 
 
-class MatchMaker:
+class Straight:
     def __init__(self):
         self.reg = {}
         self.action = {}
@@ -53,13 +53,13 @@ class MatchMaker:
             likes = self.likes(user1)
             dislikes = self.dislikes(user1)
             for user2 in self.users():
-                if user2 != user1 and user2 not in likes and user2 not in dislikes and self.reg[user1].sex != self.reg[
-                    user2].sex:
-                    if self.reg[user2].sexuality == "straight" or self.reg[user2].sexuality == "bisexual":
-                        recommendations.append(user2)
+                if self.reg[user1].sexuality == "straight" \
+                        and user2 != user1 and user2 not in likes and user2 not in dislikes \
+                        and self.reg[user1].sex != self.reg[user2].sex \
+                        and (self.reg[user2].sexuality == "straight" or self.reg[user2].sexuality == "bisexual"):
+                    recommendations.append(user2)
         else:
             print("Hi", user1, "! You are just 1 step away from registering!")
-
         return recommendations
 
     def act(self, user1):
@@ -102,54 +102,56 @@ class MatchMaker:
             print("Error -", user1, "and", user2, "aren't registered tinder users")
 
 
-class Bisexual(MatchMaker):
+class Bisexual(Straight):
     def recommend(self, user1):
         recommendations = []
         if user1 in self.reg:
             likes = self.likes(user1)
             dislikes = self.dislikes(user1)
             for user2 in self.users():
-                if user2 != user1 and user2 not in likes and user2 not in dislikes:
-                    if self.reg[user2].sexuality == "bisexual":
-                        recommendations.append(user2)
-                    elif self.reg[user2].sexuality == "straight" and self.reg[user1].sex != self.reg[user2].sex:
-                        recommendations.append(user2)
-                    elif self.reg[user2].sexuality == "gay" and self.reg[user1].sex == "male":
-                        recommendations.append(user2)
-                    elif self.reg[user2].sexuality == "lesbian" and self.reg[user1].sex == "female":
-                        recommendations.append(user2)
+                if self.reg[user1].sexuality == "bisexual" \
+                        and user2 != user1 and user2 not in likes and user2 not in dislikes \
+                        and (self.reg[user2].sexuality == "bisexual"
+                             or (self.reg[user2].sexuality == "straight" and self.reg[user1].sex != self.reg[user2].sex)
+                             or (self.reg[user2].sexuality == "gay" and self.reg[user1].sex == "male")
+                             or (self.reg[user2].sexuality == "lesbian" and self.reg[user1].sex == "female")):
+                    recommendations.append(user2)
         else:
             print("Hi", user1, "! You are just 1 step away from registering!")
 
         return recommendations
 
 
-class Gay(MatchMaker):
+class Gay(Straight):
     def recommend(self, user1):
         recommendations = []
         if user1 in self.reg:
             likes = self.likes(user1)
             dislikes = self.dislikes(user1)
             for user2 in self.users():
-                if user2 != user1 and user2 not in likes and user2 not in dislikes and self.reg[user2].sex == "male":
-                    if self.reg[user2].sexuality == "gay" or self.reg[user2].sexuality == "bisexual":
-                        recommendations.append(user2)
+                if self.reg[user1].sexuality == "gay" \
+                        and user2 != user1 and user2 not in likes and user2 not in dislikes \
+                        and self.reg[user2].sex == "male" \
+                        and (self.reg[user2].sexuality == "gay" or self.reg[user2].sexuality == "bisexual"):
+                    recommendations.append(user2)
         else:
             print("Hi", user1, "! You are just 1 step away from registering!")
 
         return recommendations
 
 
-class Lesbian(MatchMaker):
+class Lesbian(Straight):
     def recommend(self, user1):
         recommendations = []
         if user1 in self.reg:
             likes = self.likes(user1)
             dislikes = self.dislikes(user1)
             for user2 in self.users():
-                if user2 != user1 and user2 not in likes and user2 not in dislikes and self.reg[user2].sex == "female":
-                    if self.reg[user2].sexuality == "lesbian" or self.reg[user2].sexuality == "bisexual":
-                        recommendations.append(user2)
+                if self.reg[user1].sexuality == "lesbian" \
+                        and user2 != user1 and user2 not in likes and user2 not in dislikes \
+                        and self.reg[user2].sex == "female" \
+                        and (self.reg[user2].sexuality == "lesbian" or self.reg[user2].sexuality == "bisexual"):
+                    recommendations.append(user2)
         else:
             print("Hi", user1, "! You are just 1 step away from registering!")
 
@@ -162,91 +164,91 @@ p3 = Person("Maya", "female", 26, "lesbian")
 p4 = Person("Romilda", "female", 27, "straight")
 p5 = Person("Hermoine", "female", 29, "straight")
 
-m = MatchMaker()
-s1 = Bisexual()
-s2 = Gay()
-s3 = Lesbian()
-m.register(p1)
-m.register(p2)
-m.register(p4)
-m.register(Person("Megan", "female", 27, "bisexual"))
-m.register(Person("Clark", "male", 27, "bisexual"))
-m.register(Person("John", "male", 30, "gay"))
-m.register(Person("Abraham", "male", 28, "gay"))
-m.register(Person("George", "male", 28, "gay"))
-m.register(Person("Samantha", "female", 25, "lesbian"))
-m.register(p3)
+straight = Straight()
+bisexual = Bisexual()
+gay = Gay()
+lesbian = Lesbian()
+straight.register(p1)
+straight.register(p2)
+straight.register(p4)
+straight.register(Person("Megan", "female", 27, "bisexual"))
+straight.register(Person("Clark", "male", 27, "bisexual"))
+straight.register(Person("John", "male", 30, "gay"))
+straight.register(Person("Abraham", "male", 28, "gay"))
+straight.register(Person("George", "male", 28, "gay"))
+straight.register(Person("Samantha", "female", 25, "lesbian"))
+straight.register(p3)
 
-print("registered users =", m.users())
+print("registered users =", straight.users())
 
-s1.register(p1)
-s1.register(p2)
-s1.register(p4)
-s1.register(Person("Megan", "female", 27, "bisexual"))
-s1.register(Person("Clark", "male", 27, "bisexual"))
-s1.register(Person("John", "male", 30, "gay"))
-s1.register(Person("Abraham", "male", 28, "gay"))
-s1.register(Person("George", "male", 28, "gay"))
-s1.register(Person("Samantha", "female", 25, "lesbian"))
-s1.register(p3)
+bisexual.register(p1)
+bisexual.register(p2)
+bisexual.register(p4)
+bisexual.register(Person("Megan", "female", 27, "bisexual"))
+bisexual.register(Person("Clark", "male", 27, "bisexual"))
+bisexual.register(Person("John", "male", 30, "gay"))
+bisexual.register(Person("Abraham", "male", 28, "gay"))
+bisexual.register(Person("George", "male", 28, "gay"))
+bisexual.register(Person("Samantha", "female", 25, "lesbian"))
+bisexual.register(p3)
 
-print("registered users =", s1.users())
+print("registered users =", bisexual.users())
 
-s2.register(p1)
-s2.register(p2)
-s2.register(p4)
-s2.register(Person("Megan", "female", 27, "bisexual"))
-s2.register(Person("Clark", "male", 27, "bisexual"))
-s2.register(Person("John", "male", 30, "gay"))
-s2.register(Person("Abraham", "male", 28, "gay"))
-s2.register(Person("George", "male", 28, "gay"))
-s2.register(Person("Samantha", "female", 25, "lesbian"))
-s2.register(p3)
+gay.register(p1)
+gay.register(p2)
+gay.register(p4)
+gay.register(Person("Megan", "female", 27, "bisexual"))
+gay.register(Person("Clark", "male", 27, "bisexual"))
+gay.register(Person("John", "male", 30, "gay"))
+gay.register(Person("Abraham", "male", 28, "gay"))
+gay.register(Person("George", "male", 28, "gay"))
+gay.register(Person("Samantha", "female", 25, "lesbian"))
+gay.register(p3)
 
-print("registered users =", s2.users())
+print("registered users =", gay.users())
 
-s3.register(p1)
-s3.register(p2)
-s3.register(p4)
-s3.register(Person("Megan", "female", 27, "bisexual"))
-s3.register(Person("Clark", "male", 27, "bisexual"))
-s3.register(Person("John", "male", 30, "gay"))
-s3.register(Person("Abraham", "male", 28, "gay"))
-s3.register(Person("George", "male", 28, "gay"))
-s3.register(Person("Samantha", "female", 25, "lesbian"))
-s3.register(p3)
+lesbian.register(p1)
+lesbian.register(p2)
+lesbian.register(p4)
+lesbian.register(Person("Megan", "female", 27, "bisexual"))
+lesbian.register(Person("Clark", "male", 27, "bisexual"))
+lesbian.register(Person("John", "male", 30, "gay"))
+lesbian.register(Person("Abraham", "male", 28, "gay"))
+lesbian.register(Person("George", "male", 28, "gay"))
+lesbian.register(Person("Samantha", "female", 25, "lesbian"))
+lesbian.register(p3)
 
-print("registered users =", s3.users())
+print("registered users =", lesbian.users())
 
-print("recommendations for Harry =", m.recommend("Harry"))
-print("recommendations for Ginny =", m.recommend("Ginny"))
-print("recommendations for Romilda =", m.recommend("Romilda"))
-print("recommendations for Hermoine =", m.recommend("Hermoine"))
+print("recommendations for Harry =", straight.recommend("Harry"))
+print("recommendations for Ginny =", straight.recommend("Ginny"))
+print("recommendations for Romilda =", straight.recommend("Romilda"))
+print("recommendations for Hermoine =", straight.recommend("Hermoine"))
 
-print("recommendations for Megan =", s1.recommend("Megan"))
-print("recommendations for Clark =", s1.recommend("Clark"))
+print("recommendations for Megan =", bisexual.recommend("Megan"))
+print("recommendations for Clark =", bisexual.recommend("Clark"))
 
-print("recommendations John =", s2.recommend("John"))
-print("recommendations Abraham =", s2.recommend("Abraham"))
-print("recommendations George =", s2.recommend("George"))
+print("recommendations John =", gay.recommend("John"))
+print("recommendations Abraham =", gay.recommend("Abraham"))
+print("recommendations George =", gay.recommend("George"))
 
-print("recommendations Maya =", s3.recommend("Maya"))
-print("recommendations Samantha =", s3.recommend("Samantha"))
+print("recommendations Maya =", lesbian.recommend("Maya"))
+print("recommendations Samantha =", lesbian.recommend("Samantha"))
 
-m.swipe("Harry", "Ginny", "right")
-m.swipe("Harry", "Romilda", "left")
-m.swipe("John", "Abraham", "right")
-m.swipe("John", "George", "left")
-m.swipe("Ginny", "Harry", "right")
+straight.swipe("Harry", "Ginny", "right")
+straight.swipe("Harry", "Romilda", "left")
+straight.swipe("John", "Abraham", "right")
+straight.swipe("John", "George", "left")
+straight.swipe("Ginny", "Harry", "right")
 
-print("Harry likes =", m.likes("Harry"))
-print("Harry dislikes =", m.dislikes("Harry"))
-print("John likes =", m.likes("John"))
-print("John dislikes =", m.dislikes("John"))
-print("Ginny likes =", m.likes("Ginny"))
-print("Ginny dislikes =", m.dislikes("Ginny"))
+print("Harry likes =", straight.likes("Harry"))
+print("Harry dislikes =", straight.dislikes("Harry"))
+print("John likes =", straight.likes("John"))
+print("John dislikes =", straight.dislikes("John"))
+print("Ginny likes =", straight.likes("Ginny"))
+print("Ginny dislikes =", straight.dislikes("Ginny"))
 
-print("recommendations for Harry =", m.recommend("Harry"))
-print("recommendations John =", m.recommend("John"))
+print("recommendations for Harry =", straight.recommend("Harry"))
+print("recommendations John =", straight.recommend("John"))
 
-print("recommendations for Ginny =", m.recommend("Ginny"))
+print("recommendations for Ginny =", straight.recommend("Ginny"))
