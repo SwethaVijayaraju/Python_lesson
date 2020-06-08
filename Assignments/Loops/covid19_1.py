@@ -186,10 +186,10 @@ def recdays2(input1,input2):
 	if len(input1)!=len(input2):
 		return "input error"
 	else:
-		recndays=recperday(input2)
+		rec_days=recperday(input2)
 		totalcases=activecases(input1)
-		patient=recndays[0]/recndays[1]
-		active=totalcases-recndays[0]
+		patient=rec_days[0]/rec_days[1]
+		active=totalcases-rec_days[0]
 		if patient==0 or active==0 or totalcases==0:
 			return "Requires more data"
 		else:

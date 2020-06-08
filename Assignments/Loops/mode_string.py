@@ -46,15 +46,22 @@ def mode2(word):
         count[letter1]=0
     for i in range(len(word)):
         letter4=word[i]
+        index_history=i
         if i==0:
             count[letter4]=count[letter4]+1
             letter_history=letter4
-        elif i!=0:
+        else:
             if letter4==letter_history:
                 count[letter4]=count[letter4]+1
                 letter_history=letter4
             else:
-                break
+                count[letter4]=count[letter4]+1
+                letter_history=letter4
+                
+    for j in range(len(word)):
+        letter5=word[j]
+        if j>=index_history:
+
 
     reversecount = {}
     for letter3 in count:

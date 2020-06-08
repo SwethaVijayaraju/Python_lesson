@@ -247,6 +247,6 @@ print("Ginny likes =", m.likes("Ginny"))
 print("Ginny dislikes =", m.dislikes("Ginny"))
 
 print("recommendations for Harry =", m.recommend("Harry"))
-print("recommendations John =", s2.recommend("John"))
+print("recommendations John =", m.recommend("John"))
 
 print("recommendations for Ginny =", m.recommend("Ginny"))
