@@ -78,6 +78,183 @@ class Robot:
             route.append("up")
             mod_ver = mod_ver - 1
 
+    def intersection_point(self, robot):
+        if self.x == robot.x and self.y == robot.y:
+            return "Robots are already at the intersection point"
+        else:
+            total_fuel = self.f + robot.f
+            dis_hor = robot.x - self.x
+            dis_ver = robot.y - self.y
+
+            mod_hor = abs(dis_hor)
+            mod_ver = abs(dis_ver)
+
+            fuel_req = self.fuel_required(mod_hor, mod_ver)
+
+            if total_fuel < fuel_req:
+                return "Fuel not sufficient"
+
+            else:
+                mp_x = (self.x + robot.x) / 2
+                mp_y = (self.y + robot.y) / 2
+                inter_x = self.x
+                inter_y = self.y
+
+                if type(mp_x) == int and type(mp_y) == int:
+                    mod_hor_mp = abs(mp_x - self.x)
+                    mod_ver_mp = abs(mp_y - self.y)
+                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+
+                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp:
+                        return mp_x, mp_y
+                    elif self.f < fuel_req_mp <= robot.f:
+                        steps_rob1 = self.f * 2
+
+                        if self.x > robot.x:
+                            inter_x = self.x - min(steps_rob1, mod_hor)
+                            # (while steps_rob1 > 0 and mod_hor > 0:
+                            # self.x = self.x - 1
+                            # mod_hor = mod_hor - 1
+                            # steps_rob1 = steps_rob1 - 1)
+                        elif self.x < robot.x:
+                            inter_x = self.x + min(steps_rob1, mod_hor)
+
+                        if self.y > robot.y:
+                            inter_y = self.y - min(steps_rob1, mod_hor)
+                        elif self.y < robot.y:
+                            inter_y = self.y + min(steps_rob1, mod_hor)
+
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp > robot.f:
+                        steps_rob2 = robot.f * 2
+
+                        if robot.x > self.x:
+                            inter_x = robot.x - min(steps_rob2, mod_hor)
+                        elif robot.x < self.x:
+                            inter_x = robot.x + min(steps_rob2, mod_hor)
+
+                        if robot.y > self.y:
+                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                        elif robot.y < self.y:
+                            inter_y = robot.y + min(steps_rob2, mod_hor)
+
+                        return inter_x, inter_y
+                elif type(mp_x) == float and type(mp_y) == float:
+                    mp_x = mp_x + 0.5
+                    mp_y = mp_y + 0.5
+                    mod_hor_mp = abs(mp_x - self.x)
+                    mod_ver_mp = abs(mp_y - self.y)
+                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+
+                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp:
+                        return mp_x, mp_y
+                    elif self.f < fuel_req_mp <= robot.f:
+                        steps_rob1 = self.f * 2
+
+                        if self.x > robot.x:
+                            inter_x = self.x - min(steps_rob1, mod_hor)
+                        elif self.x < robot.x:
+                            inter_x = self.x + min(steps_rob1, mod_hor)
+
+                        if self.y > robot.y:
+                            inter_y = self.y - min(steps_rob1, mod_hor)
+                        elif self.y < robot.y:
+                            inter_y = self.y + min(steps_rob1, mod_hor)
+
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp > robot.f:
+                        steps_rob2 = robot.f * 2
+
+                        if robot.x > self.x:
+                            inter_x = robot.x - min(steps_rob2, mod_hor)
+                        elif robot.x < self.x:
+                            inter_x = robot.x + min(steps_rob2, mod_hor)
+
+                        if robot.y > self.y:
+                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                        elif robot.y < self.y:
+                            inter_y = robot.y + min(steps_rob2, mod_hor)
+
+                        return inter_x, inter_y
+                elif type(mp_x) == int and type(mp_y) == float:
+                    mp_y = mp_y + 0.5
+                    mod_hor_mp = abs(mp_x - self.x)
+                    mod_ver_mp = abs(mp_y - self.y)
+                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+
+                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp - 0.5:
+                        return mp_x, mp_y
+                    elif self.f >= fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        return mp_x, mp_y - 1
+
+                    elif self.f < fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        steps_rob1 = self.f * 2
+
+                        if self.x > robot.x:
+                            inter_x = self.x - min(steps_rob1, mod_hor)
+                        elif self.x < robot.x:
+                            inter_x = self.x + min(steps_rob1, mod_hor)
+
+                        if self.y > robot.y:
+                            inter_y = self.y - min(steps_rob1, mod_hor)
+                        elif self.y < robot.y:
+                            inter_y = self.y + min(steps_rob1, mod_hor)
+
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp and robot.f < fuel_req_mp - 0.5:
+                        steps_rob2 = robot.f * 2
+
+                        if robot.x > self.x:
+                            inter_x = robot.x - min(steps_rob2, mod_hor)
+                        elif robot.x < self.x:
+                            inter_x = robot.x + min(steps_rob2, mod_hor)
+
+                        if robot.y > self.y:
+                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                        elif robot.y < self.y:
+                            inter_y = robot.y + min(steps_rob2, mod_hor)
+
+                        return inter_x, inter_y
+                elif type(mp_x) == float and type(mp_y) == int:
+                    mp_x = mp_x + 0.5
+                    mod_hor_mp = abs(mp_x - self.x)
+                    mod_ver_mp = abs(mp_y - self.y)
+                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+
+                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp - 0.5:
+                        return mp_x, mp_y
+                    elif self.f >= fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        return mp_x - 1, mp_y
+
+                    elif self.f < fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        steps_rob1 = self.f * 2
+
+                        if self.x > robot.x:
+                            inter_x = self.x - min(steps_rob1, mod_hor)
+                        elif self.x < robot.x:
+                            inter_x = self.x + min(steps_rob1, mod_hor)
+
+                        if self.y > robot.y:
+                            inter_y = self.y - min(steps_rob1, mod_hor)
+                        elif self.y < robot.y:
+                            inter_y = self.y + min(steps_rob1, mod_hor)
+
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp and robot.f < fuel_req_mp - 0.5:
+                        steps_rob2 = robot.f * 2
+
+                        if robot.x > self.x:
+                            inter_x = robot.x - min(steps_rob2, mod_hor)
+                        elif robot.x < self.x:
+                            inter_x = robot.x + min(steps_rob2, mod_hor)
+
+                        if robot.y > self.y:
+                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                        elif robot.y < self.y:
+                            inter_y = robot.y + min(steps_rob2, mod_hor)
+
+                        return inter_x, inter_y
+
     def movements(self, des_x, des_y):
         route = []
 
@@ -141,31 +318,31 @@ class FaultyRobot(Robot):
         print("Up command cannot pass")
 
 
-r = Robot(0, 0, 20)
-r.up()
-print("position =", r.position())
-r.down()
-print("position =", r.position())
-print("total distance =", r.distance(), "units")
-r.right()
-print("position =", r.position())
-r.left()
-print("position =", r.position())
-print("total distance =", r.distance(), "units")
-print("fuel left =", r.fuel_left(), "units")
-r.up()
-r.up()
-print("position =", r.position())
-print("total distance =", r.distance(), "units")
-print("fuel left =", r.fuel_left(), "units")
-print("route =", r.movements(1, 5))
-print("route =", r.movements(-1, 9))
-print("route =", r.movements(0, 0))
-print("route =", r.movements(1, 100))
-print("position =", r.position())
-print("total distance =", r.distance(), "units")
-print("fuel left =", r.fuel_left(), "units")
-print("fuel consumed =", r.fuel_consumed(), "units")
+r1 = Robot(0, 0, 20)
+r1.up()
+print("position =", r1.position())
+r1.down()
+print("position =", r1.position())
+print("total distance =", r1.distance(), "units")
+r1.right()
+print("position =", r1.position())
+r1.left()
+print("position =", r1.position())
+print("total distance =", r1.distance(), "units")
+print("fuel left =", r1.fuel_left(), "units")
+r1.up()
+r1.up()
+print("position =", r1.position())
+print("total distance =", r1.distance(), "units")
+print("fuel left =", r1.fuel_left(), "units")
+print("route =", r1.movements(1, 5))
+print("route =", r1.movements(-1, 9))
+print("route =", r1.movements(0, 0))
+print("route =", r1.movements(1, 100))
+print("position =", r1.position())
+print("total distance =", r1.distance(), "units")
+print("fuel left =", r1.fuel_left(), "units")
+print("fuel consumed =", r1.fuel_consumed(), "units")
 print("|" * 90)
 
 print("")
@@ -235,3 +412,104 @@ print("position =", f.position())
 print("total distance =", f.distance(), "units")
 print("fuel left =", f.fuel_left(), "units")
 print("fuel consumed =", f.fuel_consumed(), "units")
+print("|" * 90)
+
+print("")
+print("Intersection Point")
+print("")
+
+print("")
+print("already at intersection point")
+r2 = Robot(0, 4, 10)
+r3 = Robot(0, 4, 8)
+print("**intersection point of (0, 4, 10) & (0, 4, 8) =", r2.intersection_point(r3))
+
+print("")
+print("insufficient fuel")
+r4 = Robot(0, 0, 2)
+r5 = Robot(0, 10, 1)
+print("**intersection point of (0, 0, 2) & (0, 10, 1) =", r4.intersection_point(r5))
+
+print("")
+print("x,y-int and midpoint")
+r6 = Robot(1, 7, 10)
+r7 = Robot(3, -7, 8)
+print("**intersection point of (1, 7, 10) & (3, -7, 8) =", r6.intersection_point(r7))
+
+print("")
+print("x,y-int and self robot with insufficient fuel")
+r8 = Robot(1, 7, 1)
+r9 = Robot(3, -7, 10)
+print("**intersection point of (1, 7, 1) & (3, -7, 10) =", r8.intersection_point(r9))
+
+print("")
+print("x,y-int and other robot with insufficient fuel")
+r10 = Robot(1, 7, 10)
+r11 = Robot(3, -7, 1)
+print("**intersection point of (1, 7, 10) & (3, -7, 1) =", r10.intersection_point(r11))
+
+print("")
+print("x,y-float and midpoint")
+r12 = Robot(1, 3, 10)
+r13 = Robot(2, -4, 8)
+print("**intersection point of (1, 3, 10) & (2, -4, 8) =", r12.intersection_point(r13))
+
+print("")
+print("x,y-float and self robot with insufficient fuel")
+r14 = Robot(1, 3, 1)
+r15 = Robot(2, -4, 8)
+print("**intersection point of (1, 3, 1) & (2, -4, 8) =", r14.intersection_point(r15))
+
+print("")
+print("x,y-float and other robot with insufficient fuel")
+r16 = Robot(1, 3, 8)
+r17 = Robot(2, -4, 1)
+print("**intersection point of (1, 3, 8) & (2, -4, 1) =", r16.intersection_point(r17))
+
+print("")
+print("x - float, y-int and 1st midpoint")
+r18 = Robot(1, 4, 2)
+r19 = Robot(2, -4, 2.5)
+print("**intersection point of (1, 4, 2) & (2, -4, 2.5) =", r18.intersection_point(r19))
+
+print("")
+print("x - float, y-int and 2nd midpoint")
+r20 = Robot(1, 4, 2.5)
+r21 = Robot(2, -4, 2)
+print("**intersection point of (1, 4, 2.5) & (2, -4, 2) =", r18.intersection_point(r19))
+
+print("")
+print("x - float, y-int and self robot with insufficient fuel")
+r22 = Robot(1, 4, 1)
+r23 = Robot(2, -4, 5)
+print("**intersection point of (1, 4, 1) & (2, -4, 5) =", r22.intersection_point(r23))
+
+print("")
+print("x - float, y-int and other robot with insufficient fuel")
+r24 = Robot(1, 4, 5)
+r25 = Robot(2, -4, 1)
+print("**intersection point of (1, 4, 5) & (2, -4, 1) =", r24.intersection_point(r25))
+
+print("")
+print("x - int, y-float and 1st midpoint")
+r26 = Robot(4, 1, 2)
+r27 = Robot(-4, 2, 2.5)
+print("**intersection point of (4, 1, 2) & (-4, 2, 2.5) =", r26.intersection_point(r27))
+
+print("")
+print("x - int, y-float and 2nd midpoint")
+r28 = Robot(4, 1, 2.5)
+r29 = Robot(-4, 2, 2)
+print("**intersection point of (4, 1, 2.5) & (-4, 2, 2) =", r28.intersection_point(r29))
+
+print("")
+print("x - int, y-float and self robot with insufficient fuel")
+r30 = Robot(4, 1, 1)
+r31 = Robot(-4, 2, 5)
+print("**intersection point of (4, 1, 1) & (-4, 2, 5) =", r30.intersection_point(r31))
+
+print("")
+print("x - int, y-float and other robot with insufficient fuel")
+r32 = Robot(4, 1, 5)
+r33 = Robot(-4, 2, 1)
+print("**intersection point of (4, 1, 5) & (-4, 2, 1) =", r32.intersection_point(r33))
