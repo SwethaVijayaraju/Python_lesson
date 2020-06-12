@@ -1,3 +1,6 @@
+import math
+
+
 class Robot:
 
     def __init__(self, xcoor, ycoor, fuel):
@@ -97,161 +100,212 @@ class Robot:
             else:
                 mp_x = (self.x + robot.x) / 2
                 mp_y = (self.y + robot.y) / 2
+                mp_x1 = math.ceil(mp_x)
+                mp_y1 = math.ceil(mp_y)
+                mp_x2 = math.floor(mp_x)
+                mp_y2 = math.floor(mp_y)
+
                 inter_x = self.x
                 inter_y = self.y
 
-                if type(mp_x) == int and type(mp_y) == int:
-                    mod_hor_mp = abs(mp_x - self.x)
-                    mod_ver_mp = abs(mp_y - self.y)
-                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+                mod_hor_mp1 = abs(mp_x1 - self.x)
+                mod_ver_mp1 = abs(mp_y1 - self.y)
+                fuel_req_mp1 = self.fuel_required(mod_hor_mp1, mod_ver_mp1)
 
-                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp:
-                        return mp_x, mp_y
-                    elif self.f < fuel_req_mp <= robot.f:
+                mod_hor_mp2 = abs(mp_x2 - self.x)
+                mod_ver_mp2 = abs(mp_y2 - self.y)
+                fuel_req_mp2 = self.fuel_required(mod_hor_mp2, mod_ver_mp2)
+
+                if mp_x1 == mp_x2 and mp_y1 == mp_y2:  # both midpoints are the same.type(mp_x) = int and type(mp_y)
+                    # = int
+                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x
+                        inter_y = mp_y
+                        return inter_x, inter_y
+                    elif self.f < fuel_req_mp1 <= robot.f:
                         steps_rob1 = self.f * 2
 
                         if self.x > robot.x:
                             inter_x = self.x - min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
                             # (while steps_rob1 > 0 and mod_hor > 0:
                             # self.x = self.x - 1
                             # mod_hor = mod_hor - 1
                             # steps_rob1 = steps_rob1 - 1)
                         elif self.x < robot.x:
                             inter_x = self.x + min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
 
                         if self.y > robot.y:
-                            inter_y = self.y - min(steps_rob1, mod_hor)
+                            inter_y = self.y - min(steps_rob1, mod_ver)
                         elif self.y < robot.y:
-                            inter_y = self.y + min(steps_rob1, mod_hor)
+                            inter_y = self.y + min(steps_rob1, mod_ver)
 
                         return inter_x, inter_y
-                    elif self.f >= fuel_req_mp > robot.f:
+                    elif self.f >= fuel_req_mp1 > robot.f:
                         steps_rob2 = robot.f * 2
 
                         if robot.x > self.x:
                             inter_x = robot.x - min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
                         elif robot.x < self.x:
                             inter_x = robot.x + min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
 
                         if robot.y > self.y:
-                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                            inter_y = robot.y - min(steps_rob2, mod_ver)
                         elif robot.y < self.y:
-                            inter_y = robot.y + min(steps_rob2, mod_hor)
+                            inter_y = robot.y + min(steps_rob2, mod_ver)
 
                         return inter_x, inter_y
-                elif type(mp_x) == float and type(mp_y) == float:
-                    mp_x = mp_x + 0.5
-                    mp_y = mp_y + 0.5
-                    mod_hor_mp = abs(mp_x - self.x)
-                    mod_ver_mp = abs(mp_y - self.y)
-                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
-
-                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp:
-                        return mp_x, mp_y
-                    elif self.f < fuel_req_mp <= robot.f:
+                elif mp_x1 != mp_x2 and mp_y1 != mp_y2:  # both midpoints are the different .type(mp_x) = float and
+                    # type(mp_y) = float
+                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x1
+                        inter_y = mp_y1
+                        return inter_x, inter_y
+                    elif self.f < fuel_req_mp1 <= robot.f:
                         steps_rob1 = self.f * 2
 
                         if self.x > robot.x:
                             inter_x = self.x - min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
+                            # (while steps_rob1 > 0 and mod_hor > 0:
+                            # self.x = self.x - 1
+                            # mod_hor = mod_hor - 1
+                            # steps_rob1 = steps_rob1 - 1)
                         elif self.x < robot.x:
                             inter_x = self.x + min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
 
                         if self.y > robot.y:
-                            inter_y = self.y - min(steps_rob1, mod_hor)
+                            inter_y = self.y - min(steps_rob1, mod_ver)
                         elif self.y < robot.y:
-                            inter_y = self.y + min(steps_rob1, mod_hor)
+                            inter_y = self.y + min(steps_rob1, mod_ver)
 
                         return inter_x, inter_y
-                    elif self.f >= fuel_req_mp > robot.f:
+                    elif self.f >= fuel_req_mp1 > robot.f:
                         steps_rob2 = robot.f * 2
 
                         if robot.x > self.x:
                             inter_x = robot.x - min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
                         elif robot.x < self.x:
                             inter_x = robot.x + min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
 
                         if robot.y > self.y:
-                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                            inter_y = robot.y - min(steps_rob2, mod_ver)
                         elif robot.y < self.y:
-                            inter_y = robot.y + min(steps_rob2, mod_hor)
+                            inter_y = robot.y + min(steps_rob2, mod_ver)
 
                         return inter_x, inter_y
-                elif type(mp_x) == int and type(mp_y) == float:
-                    mp_y = mp_y + 0.5
-                    mod_hor_mp = abs(mp_x - self.x)
-                    mod_ver_mp = abs(mp_y - self.y)
-                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+                elif mp_x1 == mp_x2 and mp_y1 != mp_y2:  # both midpoints are the different .type(mp_x) = int and
+                    # type(mp_y) = float
 
-                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp - 0.5:
-                        return mp_x, mp_y
-                    elif self.f >= fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
-                        return mp_x, mp_y - 1
+                    # Associated with just the 2 midpoints
+                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x1
+                        inter_y = mp_y1
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp2:
+                        inter_x = mp_x1
+                        inter_y = mp_y1
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp2 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x2
+                        inter_y = mp_y2
+                        return inter_x, inter_y
 
-                    elif self.f < fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        # Not associated with midpoints. IP allocated based on fuel sufficiency in both robots.
+                    elif self.f < fuel_req_mp2 < fuel_req_mp1 <= robot.f:
                         steps_rob1 = self.f * 2
 
                         if self.x > robot.x:
                             inter_x = self.x - min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
+                            # (while steps_rob1 > 0 and mod_hor > 0:
+                            # self.x = self.x - 1
+                            # mod_hor = mod_hor - 1
+                            # steps_rob1 = steps_rob1 - 1)
                         elif self.x < robot.x:
                             inter_x = self.x + min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
 
                         if self.y > robot.y:
-                            inter_y = self.y - min(steps_rob1, mod_hor)
+                            inter_y = self.y - min(steps_rob1, mod_ver)
                         elif self.y < robot.y:
-                            inter_y = self.y + min(steps_rob1, mod_hor)
+                            inter_y = self.y + min(steps_rob1, mod_ver)
 
                         return inter_x, inter_y
-                    elif self.f >= fuel_req_mp and robot.f < fuel_req_mp - 0.5:
+                    elif self.f >= fuel_req_mp1 > fuel_req_mp2 > robot.f:
                         steps_rob2 = robot.f * 2
 
                         if robot.x > self.x:
                             inter_x = robot.x - min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
                         elif robot.x < self.x:
                             inter_x = robot.x + min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
 
                         if robot.y > self.y:
-                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                            inter_y = robot.y - min(steps_rob2, mod_ver)
                         elif robot.y < self.y:
-                            inter_y = robot.y + min(steps_rob2, mod_hor)
+                            inter_y = robot.y + min(steps_rob2, mod_ver)
 
                         return inter_x, inter_y
-                elif type(mp_x) == float and type(mp_y) == int:
-                    mp_x = mp_x + 0.5
-                    mod_hor_mp = abs(mp_x - self.x)
-                    mod_ver_mp = abs(mp_y - self.y)
-                    fuel_req_mp = self.fuel_required(mod_hor_mp, mod_ver_mp)
+                elif mp_x1 != mp_x2 and mp_y1 == mp_y2:  # both midpoints are the different .type(mp_x) = float and
+                    # type(mp_y) = int
 
-                    if self.f >= fuel_req_mp and robot.f >= fuel_req_mp - 0.5:
-                        return mp_x, mp_y
-                    elif self.f >= fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
-                        return mp_x - 1, mp_y
+                    # Associated with just the 2 midpoints
+                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x1
+                        inter_y = mp_y1
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp2:
+                        inter_x = mp_x1
+                        inter_y = mp_y1
+                        return inter_x, inter_y
+                    elif self.f >= fuel_req_mp2 and robot.f >= fuel_req_mp1:
+                        inter_x = mp_x2
+                        inter_y = mp_y2
+                        return inter_x, inter_y
 
-                    elif self.f < fuel_req_mp - 0.5 and robot.f >= fuel_req_mp:
+                        # Not associated with midpoints. IP allocated based on fuel sufficiency in both robots.
+                    elif self.f < fuel_req_mp2 < fuel_req_mp1 <= robot.f:
                         steps_rob1 = self.f * 2
 
                         if self.x > robot.x:
                             inter_x = self.x - min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
+                            # (while steps_rob1 > 0 and mod_hor > 0:
+                            # self.x = self.x - 1
+                            # mod_hor = mod_hor - 1
+                            # steps_rob1 = steps_rob1 - 1)
                         elif self.x < robot.x:
                             inter_x = self.x + min(steps_rob1, mod_hor)
+                            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
 
                         if self.y > robot.y:
-                            inter_y = self.y - min(steps_rob1, mod_hor)
+                            inter_y = self.y - min(steps_rob1, mod_ver)
                         elif self.y < robot.y:
-                            inter_y = self.y + min(steps_rob1, mod_hor)
+                            inter_y = self.y + min(steps_rob1, mod_ver)
 
                         return inter_x, inter_y
-                    elif self.f >= fuel_req_mp and robot.f < fuel_req_mp - 0.5:
+                    elif self.f >= fuel_req_mp1 > fuel_req_mp2 > robot.f:
                         steps_rob2 = robot.f * 2
 
                         if robot.x > self.x:
                             inter_x = robot.x - min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
                         elif robot.x < self.x:
                             inter_x = robot.x + min(steps_rob2, mod_hor)
+                            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
 
                         if robot.y > self.y:
-                            inter_y = robot.y - min(steps_rob2, mod_hor)
+                            inter_y = robot.y - min(steps_rob2, mod_ver)
                         elif robot.y < self.y:
-                            inter_y = robot.y + min(steps_rob2, mod_hor)
+                            inter_y = robot.y + min(steps_rob2, mod_ver)
 
                         return inter_x, inter_y
 
@@ -476,7 +530,7 @@ print("")
 print("x - float, y-int and 2nd midpoint")
 r20 = Robot(1, 4, 2.5)
 r21 = Robot(2, -4, 2)
-print("**intersection point of (1, 4, 2.5) & (2, -4, 2) =", r18.intersection_point(r19))
+print("**intersection point of (1, 4, 2.5) & (2, -4, 2) =", r20.intersection_point(r21))
 
 print("")
 print("x - float, y-int and self robot with insufficient fuel")
