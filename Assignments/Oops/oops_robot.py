@@ -81,7 +81,7 @@ class Robot:
             route.append("up")
             mod_ver = mod_ver - 1
 
-    def ip_robot1_less_fuel(self, robot, mod_hor, mod_ver, inter_x, inter_y):
+    def ip_robot_less_fuel(self, robot, mod_hor, mod_ver, inter_x, inter_y):
         steps_rob1 = self.f * 2
 
         if self.x > robot.x:
@@ -99,23 +99,6 @@ class Robot:
             inter_y = self.y - min(steps_rob1, mod_ver)
         elif self.y < robot.y:
             inter_y = self.y + min(steps_rob1, mod_ver)
-
-        return inter_x, inter_y
-
-    def ip_robot2_less_fuel(self, robot, mod_hor, mod_ver, inter_x, inter_y):
-        steps_rob2 = robot.f * 2
-
-        if robot.x > self.x:
-            inter_x = robot.x - min(steps_rob2, mod_hor)
-            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
-        elif robot.x < self.x:
-            inter_x = robot.x + min(steps_rob2, mod_hor)
-            steps_rob2 = steps_rob2 - min(steps_rob2, mod_hor)
-
-        if robot.y > self.y:
-            inter_y = robot.y - min(steps_rob2, mod_ver)
-        elif robot.y < self.y:
-            inter_y = robot.y + min(steps_rob2, mod_ver)
 
         return inter_x, inter_y
 
@@ -155,64 +138,21 @@ class Robot:
                 mod_ver_mp2 = abs(mp_y2 - self.y)
                 fuel_req_mp2 = self.fuel_required(mod_hor_mp2, mod_ver_mp2)
 
-                if mp_x1 == mp_x2 and mp_y1 == mp_y2:  # both midpoints are the same.type(mp_x) = int and type(mp_y)
-                    # = int
-                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
-                        inter_x = mp_x
-                        inter_y = mp_y
-                        return inter_x, inter_y
-                    elif self.f < fuel_req_mp1 <= robot.f:
-                        return self.ip_robot1_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                    elif self.f >= fuel_req_mp1 > robot.f:
-                        return self.ip_robot2_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                elif mp_x1 != mp_x2 and mp_y1 != mp_y2:  # both midpoints are the different .type(mp_x) = float and
-                    # type(mp_y) = float
-                    if self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1:
-                        inter_x = mp_x1
-                        inter_y = mp_y1
-                        return inter_x, inter_y
-                    elif self.f < fuel_req_mp1 <= robot.f:
-                        return self.ip_robot1_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                    elif self.f >= fuel_req_mp1 > robot.f:
-                        return self.ip_robot2_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                elif mp_x1 == mp_x2 and mp_y1 != mp_y2:  # both midpoints are the different .type(mp_x) = int and
-                    # type(mp_y) = float
+                if (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1) \
+                        or (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp2):
+                    inter_x = mp_x1
+                    inter_y = mp_y1
+                    return inter_x, inter_y
+                elif self.f >= fuel_req_mp2 and robot.f >= fuel_req_mp1:
+                    inter_x = mp_x2
+                    inter_y = mp_y2
+                    return inter_x, inter_y
 
-                    # Associated with just the 2 midpoints
-                    if (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1) \
-                            or (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp2):
-                        inter_x = mp_x1
-                        inter_y = mp_y1
-                        return inter_x, inter_y
-                    elif self.f >= fuel_req_mp2 and robot.f >= fuel_req_mp1:
-                        inter_x = mp_x2
-                        inter_y = mp_y2
-                        return inter_x, inter_y
-
-                        # Not associated with midpoints. IP allocated based on fuel sufficiency in both robots.
-                    elif self.f < fuel_req_mp2 < fuel_req_mp1 <= robot.f:
-                        return self.ip_robot1_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                    elif self.f >= fuel_req_mp1 > fuel_req_mp2 > robot.f:
-                        return self.ip_robot2_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                elif mp_x1 != mp_x2 and mp_y1 == mp_y2:  # both midpoints are the different .type(mp_x) = float and
-                    # type(mp_y) = int
-
-                    # Associated with just the 2 midpoints
-                    if (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp1) \
-                            or (self.f >= fuel_req_mp1 and robot.f >= fuel_req_mp2):
-                        inter_x = mp_x1
-                        inter_y = mp_y1
-                        return inter_x, inter_y
-                    elif self.f >= fuel_req_mp2 and robot.f >= fuel_req_mp1:
-                        inter_x = mp_x2
-                        inter_y = mp_y2
-                        return inter_x, inter_y
-
-                        # Not associated with midpoints. IP allocated based on fuel sufficiency in both robots.
-                    elif self.f < fuel_req_mp2 < fuel_req_mp1 <= robot.f:
-                        return self.ip_robot1_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
-                    elif self.f >= fuel_req_mp1 > fuel_req_mp2 > robot.f:
-                        return self.ip_robot2_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
+                    # Not associated with midpoints. IP allocated based on fuel sufficiency in both robots.
+                elif self.f < fuel_req_mp2 <= robot.f:
+                    return self.ip_robot_less_fuel(robot, mod_hor, mod_ver, inter_x, inter_y)
+                elif self.f >= fuel_req_mp2 > robot.f:
+                    return robot.ip_robot_less_fuel(self, mod_hor, mod_ver, inter_x, inter_y)
 
     def movements(self, des_x, des_y):
         route = []
