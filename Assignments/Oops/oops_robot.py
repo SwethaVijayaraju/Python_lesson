@@ -81,26 +81,29 @@ class Robot:
             route.append("up")
             mod_ver = mod_ver - 1
 
+    def max_steps(self):
+        return self.f * 2
+
     def ip_robot_less_fuel(self, robot, mod_hor, mod_ver, inter_x, inter_y):
-        steps_rob1 = self.f * 2
+        steps_rob = self.max_steps()
 
         if self.x > robot.x:
-            inter_x = self.x - min(steps_rob1, mod_hor)
-            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
-            # (while steps_rob1 > 0 and mod_hor > 0:
-            # self.x = self.x - 1
-            # mod_hor = mod_hor - 1
-            # steps_rob1 = steps_rob1 - 1)
+            inter_x = self.x - min(steps_rob, mod_hor)
+            steps_rob = steps_rob - min(steps_rob, mod_hor)
         elif self.x < robot.x:
-            inter_x = self.x + min(steps_rob1, mod_hor)
-            steps_rob1 = steps_rob1 - min(steps_rob1, mod_hor)
+            inter_x = self.x + min(steps_rob, mod_hor)
+            steps_rob = steps_rob - min(steps_rob, mod_hor)
 
         if self.y > robot.y:
-            inter_y = self.y - min(steps_rob1, mod_ver)
+            inter_y = self.y - min(steps_rob, mod_ver)
         elif self.y < robot.y:
-            inter_y = self.y + min(steps_rob1, mod_ver)
+            inter_y = self.y + min(steps_rob, mod_ver)
 
         return inter_x, inter_y
+        # (while steps_rob1 > 0 and mod_hor > 0:
+        # self.x = self.x - 1
+        # mod_hor = mod_hor - 1
+        # steps_rob1 = steps_rob1 - 1) --> min(steps_rob, mod_hor)
 
     def intersection_point(self, robot):
         if self.x == robot.x and self.y == robot.y:
