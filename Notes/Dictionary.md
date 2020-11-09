@@ -2,31 +2,30 @@
 
 [Tutorial video](https://www.youtube.com/watch?v=XCcpzWs-CI4)
 
+Create
 ```
 >>> counts = {"apple":1, "banana": 2}
 >>> counts
 {'apple': 1, 'banana': 2}
+```
+
+Access item
+```
 >>> counts["apple"]
 1
 >>> counts["apple"] = 3
 >>> counts
 {'apple': 3, 'banana': 2}
+```
+
+Loop
+```
 >>> for i in counts:
 ...     print(i)
 ...
 apple
 banana
->>> for i in counts:
-...     print(counts[...     print(coun
-KeyboardInterrupt
->>>
->>>
->>>
->>> for i in counts:
-...     print(i)
-...
-apple
-banana
+
 >>> for i in counts:
 ...     print(counts[i])
 ...
@@ -37,10 +36,10 @@ banana
 ...
 ('apple', 3)
 ('banana', 2)
->>> count["potato"] = 100
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'count' is not defined
+```
+
+Assign value
+```
 >>> counts["potato"] = 100
 >>> counts
 {'potato': 100, 'apple': 3, 'banana': 2}
@@ -50,12 +49,19 @@ NameError: name 'count' is not defined
 ('potato', 100)
 ('apple', 3)
 ('banana', 2)
+```
+
+Error adding new key while looping the same dict 
+```
 >>> for i in counts:
 ...     counts["tomato"] = 1
 ...
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 RuntimeError: dictionary changed size during iteration
+```
+
+```
 >>> for i in counts:
 ...     counts["apple"] = 1
 ...
@@ -63,11 +69,7 @@ RuntimeError: dictionary changed size during iteration
 {'tomato': 1, 'potato': 100, 'apple': 1, 'banana': 2}
 >>> len(counts)
 4
->>> for i in range(len(counts))
-  File "<stdin>", line 1
-    for i in range(len(counts))
-                              ^
-SyntaxError: invalid syntax
+
 >>> for i in range(len(counts)):
 ...     print(i)
 ...
@@ -75,6 +77,10 @@ SyntaxError: invalid syntax
 1
 2
 3
+```
+
+Keyerror if accessing keys not present
+```
 >>> for i in range(len(counts)):
 ...     counts[i]
 ...
@@ -87,19 +93,22 @@ KeyError: 0
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 KeyError: 0
+```
+
+```
 >>> numbers = {0:"apple", 1:"banana"}
 >>> numbers
 {0: 'apple', 1: 'banana'}
->>> for i in range(len(numbers))
-  File "<stdin>", line 1
-    for i in range(len(numbers))
-                               ^
-SyntaxError: invalid syntax
+
 >>> for i in range(len(numbers)):
 ...     print(numbers[i])
 ...
 apple
 banana
+```
+
+List as values
+```
 >>> ingredients = {'dosa':['batter','chutney']}
 >>> ingredients
 {'dosa': ['batter', 'chutney']}
@@ -108,6 +117,10 @@ banana
 >>> ingredients['dosa'].append('sambar')
 >>> ingredients
 {'dosa': ['batter', 'chutney', 'sambar']}
+```
+
+
+```
 >>> ingredients['idly'].append('urad dal')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -125,12 +138,10 @@ AttributeError: 'str' object has no attribute 'append'
 >>> ingredients['idly'].append('urad dal')
 >>> ingredients
 {'dosa': ['batter', 'chutney', 'sambar'], 'idly': ['batter', 'urad dal']}
->>> >>> for i in counts:
-...     ingredients[i] = ['dummy']
-...
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'countsunts' is not defined
+```
+
+Copy keys from another dictionary
+```
 >>> for i in counts:
 ...     ingredients[i] = ['dummy']
 ...
