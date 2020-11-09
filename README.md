@@ -1,1 +1,3 @@
-# Python_lesson
+# Python lesson
+
+Notes/Assignments for learning python
